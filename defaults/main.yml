@@ -1,2 +1,26 @@
 ---
-# defaults file for ansible_role_vlcd
+
+want_vlcd: no
+
+vlcd_packages:
+  - vlc
+
+vlcd_user: app_vlcd
+vlcd_group: app_vlcd
+vlcd_home: " /home/{{ vlcd_user }}"
+vlcd_groups:
+  - name: "{{ vlcd_group }}"
+    gid: 4001
+vlcd_users:
+  - name: "{{ vlcd_user }}"
+    comment: "{{ vlcd_user }}"
+    group: "{{ vlcd_group }}"
+    groups:
+    home: "{{ vlcd_home }}"
+    shell: /usr/sbin/nologin
+    uid: 4001
+    home_mode: '0700'
+    password: '*'
+
+vlcd_directories:
+  - { path: "{{ vlcd_home }}", owner: "{{ vlcd_user }}", group: "{{ vlcd_group }}", mode: "0700" }

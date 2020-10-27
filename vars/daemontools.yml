@@ -1,0 +1,12 @@
+---
+
+vlcd_daemontools_dir: "{{ vlcd_dir }}/svscan"
+
+vlcd_daemontools_directories_template:
+  - { path: "", owner: root, group: "{{ root_group }}", mode: "0755" }
+  - { path: "/log", owner: root, group: "{{ root_group }}", mode: "0755" }
+  - { path: "/log/main", owner: "{{ vlcd_user }}", group: "{{ root_group }}", mode: "0755" }
+
+vlcd_daemontools_scripts_template:
+  - { path: run, owner: root, group: "{{ root_group }}", mode: "0755" }
+  - { path: log/run, owner: root, group: "{{ root_group }}", mode: "0755" }

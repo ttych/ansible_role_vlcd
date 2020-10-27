@@ -1,2 +1,28 @@
 ---
-# tasks file for ansible_role_vlcd
+
+- block:
+    - include: context.yml
+
+    - include: accounts.yml
+      vars: {
+        accounts_groups: "{{ vlcd_groups }}",
+        accounts_users: "{{ vlcd_users }}"
+      }
+
+    - include: workspace.yml
+      vars:
+        workspace_directories: "{{ vlcd_directories }}"
+
+    - include: install_packages.yml
+      vars: {
+        packages: "{{ vlcd_packages }}",
+        services: []
+      }
+
+    - include: setup_vlcd.yml
+
+  when: want_vlcd
+
+- name: "set has_vlcd to {{ want_vlcd }}"
+  set_fact:
+    has_vlcd: "{{ want_vlcd }}"

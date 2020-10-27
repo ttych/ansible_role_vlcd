@@ -1,0 +1,4 @@
+---
+
+vlcd_dir: "{{ service_dir }}/vlcd"
+vlcd_home: "{{ vlcd_dir }}/app_vlcd"

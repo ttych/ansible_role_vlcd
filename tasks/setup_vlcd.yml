@@ -1,0 +1,57 @@
+---
+
+- name: create vlc config directories
+  file:
+    path: "{{ vlcd_home }}/{{ item }}"
+    state: directory
+    mode: "0700"
+    owner: "{{ vlcd_user }}"
+    group: "{{ vlcd_group }}"
+  loop:
+    - .config
+    - .config/vlc
+
+- name: deploy vlcrc
+  template:
+    src: vlc/vlcrc
+    dest: "{{ vlcd_home }}/.config/vlc/vlcrc"
+    mode: "0600"
+    owner: "{{ vlcd_user }}"
+    group: "{{ vlcd_group }}"
+
+
+- name: deploy daemontools service
+  block:
+    - name: create daemontools workspaces
+      file:
+        path: "{{ vlcd_daemontools_dir }}/{{ item.path }}"
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+        state: directory
+      loop: "{{ vlcd_daemontools_directories_template }}"
+
+    - name: deploy daemontools run scripts
+      template:
+        src: "svscan/{{ item.path }}"
+        dest: "{{ vlcd_daemontools_dir }}/{{ item.path }}"
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      loop: "{{ vlcd_daemontools_scripts_template }}"
+
+    - name: supervise (link) daemontools services
+      file:
+        src: "{{ vlcd_daemontools_dir }}"
+        dest: "{{ daemontools_svscan_dir }}/vlcd"
+        state: link
+
+  when: has_daemontools|d(false)
+
+
+- name: start standard service
+  block:
+    - fail:
+        msg: "not implemented"
+
+  when: not has_daemontools|d(false)
