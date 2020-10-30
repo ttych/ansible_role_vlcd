@@ -6,6 +6,6 @@ set -e
 
 cd "{{ vlcd_home }}"
 
-exec setuidgid "{{ vlcd_user }}" \
+exec setuidgid -s "{{ vlcd_user }}" \
      env HOME="{{ vlcd_home }}" \
      cvlc
