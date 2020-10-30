@@ -19,6 +19,12 @@
     owner: "{{ vlcd_user }}"
     group: "{{ vlcd_group }}"
 
+- name: allow to use pulseaudio
+  user:
+    name: "{{ vlcd_user }}"
+    groups: "pulse-access"
+    append: yes
+  when: has_pulseaudio | d(no)
 
 - name: deploy daemontools service
   block:

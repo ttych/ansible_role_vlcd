@@ -15,7 +15,6 @@ vlcd_users:
   - name: "{{ vlcd_user }}"
     comment: "{{ vlcd_user }}"
     group: "{{ vlcd_group }}"
-    groups:
     home: "{{ vlcd_home }}"
     shell: /usr/sbin/nologin
     uid: 4001
