@@ -24,7 +24,7 @@
     name: "{{ vlcd_user }}"
     groups: "pulse-access"
     append: yes
-  when: has_pulseaudio | d(no)
+  when: has_pulseaudio | d(false)
 
 - name: deploy daemontools service
   block:
