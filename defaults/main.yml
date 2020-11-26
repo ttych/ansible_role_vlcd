@@ -7,7 +7,7 @@ vlcd_packages:
 
 vlcd_user: app_vlcd
 vlcd_group: app_vlcd
-vlcd_home: " /home/{{ vlcd_user }}"
+vlcd_home: "/home/{{ vlcd_user }}"
 vlcd_groups:
   - name: "{{ vlcd_group }}"
     gid: 4001
